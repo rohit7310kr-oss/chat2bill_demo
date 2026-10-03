@@ -36,28 +36,28 @@ class GenericBillPayload(BaseModel):
 class TextBillingPayload(BaseModel):
     text: str
 
-SYSTEM_PROMPT = """You are a POS billing assistant. Convert spoken or transcribed billing commands (English, Hindi, or Hinglish) into structured JSON.
+SYSTEM_PROMPT = """You are a real-time POS voice billing assistant. Convert spoken audio transcripts (English, Hindi, Hinglish) or text into structured JSON.
 
-ACTION RULES:
-- "add": Triggered by words like "add", "put", "daal do", "plus", or default when no action verb is specified.
-- "remove": Triggered by words like "remove", "hata do", "delete", "minus".
-  * If quantity is specified (e.g., "remove 3 kg potato"): action: "remove", quantity: 3.0, quantity_specified: true
-  * If quantity is omitted (e.g., "remove potato"): action: "remove", quantity: 1.0, quantity_specified: false
-- "set": Triggered by words like "make it 5", "set to 3", "5 kar do": action: "set", quantity: 5.0, quantity_specified: true
-- "remove_all": Triggered by words like "clear cart", "sab hata do", "remove everything": action: "remove_all", query_name: "all"
+ACTION IDENTIFICATION & RULES:
+- "add": "add", "put", "daal do", "plus", or default if unspecified.
+- "remove": "remove", "hata do", "delete", "minus".
+  * If user says "remove 3 kg potato" -> action: "remove", quantity: 3.0, quantity_specified: true
+  * If user says "remove potato" or "delete potato" -> action: "remove", quantity: 1.0, quantity_specified: false
+- "set": "make it 5", "set to 3", "5 kar do" -> action: "set", quantity: 5.0, quantity_specified: true
+- "remove_all": "clear cart", "sab hata do", "remove everything" -> action: "remove_all", query_name: "all"
 
 QUANTITY RULES:
-- Convert spoken numbers and units to floats (e.g., "ek"=1.0, "do"=2.0, "aadha"=0.5, "dhai"=2.5, "3kg"=3.0, "500g"=0.5, "100ml"=0.1).
-- Default quantity is 1.0 if not explicitly mentioned.
+- Convert spoken numbers/units to floats ("ek"=1.0, "do"=2.0, "aadha"=0.5, "dhai"=2.5, "3kg"=3.0).
+- Default quantity is 1.0 if not specified.
 
 STRICT JSON OUTPUT FORMAT:
 {
   "items": [
     {
-      "query_name": "item name",
-      "quantity": 1.0,
+      "query_name": "potatoes 1kg",
+      "quantity": 3.0,
       "quantity_specified": true,
-      "action": "add"
+      "action": "remove"
     }
   ]
 }"""
@@ -104,16 +104,13 @@ def match_inventory(extracted_items: List[dict]):
             unmatched.append({"spoken_name": query, "quantity": qty, "action": action})
             continue
 
-        # Stage 1: Weighted Ratio Match
         match, score, index = process.extractOne(query, inv_names, scorer=fuzz.WRatio)
 
-        # Stage 2: Token Set Ratio Fallback
         if score < 60.0:
             match_ts, score_ts, index_ts = process.extractOne(query, inv_names, scorer=fuzz.token_set_ratio)
             if score_ts > score:
                 score, index = score_ts, index_ts
 
-        # Stage 3: Phonetic Metaphone Matching
         if score < 60.0:
             query_phonetic = jellyfish.metaphone(query)
             for i, inv_item in enumerate(inv_names):
@@ -139,7 +136,7 @@ def match_inventory(extracted_items: List[dict]):
             unmatched.append({"spoken_name": query, "quantity": qty, "action": action})
 
     return confirmed, unmatched
-
+    
 def run_llm_pipeline(transcript_text: str):
     if not transcript_text.strip():
         return {
@@ -176,34 +173,6 @@ async def serve_ui():
     with open("index.html", "r") as f:
         return f.read()
 
-@app.post("/api/v1/voice-billing-audio")
-async def process_audio_billing(file: UploadFile = File(...)):
-    """Primary high-accuracy audio transcription endpoint using Whisper Large v3 Turbo"""
-    try:
-        audio_bytes = await file.read()
-        suffix = os.path.splitext(file.filename)[1] or ".wav"
-
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-            tmp.write(audio_bytes)
-            tmp_path = tmp.name
-
-        # Transcribe with Groq Whisper Large v3 Turbo using inventory vocabulary hints
-        with open(tmp_path, "rb") as audio_file:
-            transcription = client.audio.transcriptions.create(
-                model="whisper-large-v3-turbo",
-                file=audio_file,
-                prompt="Billing voice commands in English, Hindi, and Hinglish. Common items: tamatar, pyaaz, aalu, doodh, atta, chawal, sugar, oil, vitamin c, wireless mouse, charger, 1kg, 2kg, 500g, 0.5kg, aadha kilo, dhai kilo.",
-                response_format="text",
-                temperature=0.0
-            )
-        os.remove(tmp_path)
-
-        transcript_text = str(transcription).strip()
-        return run_llm_pipeline(transcript_text)
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
 @app.post("/api/v1/voice-billing-text")
 async def process_text_billing(payload: TextBillingPayload):
     try:
@@ -218,6 +187,7 @@ async def process_image_billing(file: UploadFile = File(...)):
         base64_image = base64.b64encode(image_bytes).decode('utf-8')
         mime_type = file.content_type or "image/jpeg"
 
+        # Vision processing via Groq Vision API
         vision_completion = client.chat.completions.create(
             model="qwen/qwen3.8-27b",
             messages=[
