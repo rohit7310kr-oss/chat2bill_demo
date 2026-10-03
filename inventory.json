@@ -1,0 +1,273 @@
+[
+  {
+    "id": "INV-001",
+    "name": "Organic Milk 1L",
+    "price": 3.5,
+    "unit": "liter"
+  },
+  {
+    "id": "INV-002",
+    "name": "Amul Salted Butter 500g",
+    "price": 4.2,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-003",
+    "name": "Whole Wheat Bread 400g",
+    "price": 2.1,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-004",
+    "name": "Coca-Cola Original 500ml",
+    "price": 1.5,
+    "unit": "bottle"
+  },
+  {
+    "id": "INV-F7DC9B",
+    "name": "Blueberry Yogurt",
+    "price": 2.75,
+    "unit": "item"
+  },
+
+  {
+    "id": "INV-005",
+    "name": "Wireless Mouse",
+    "price": 15.99,
+    "unit": "item"
+  },
+  {
+    "id": "INV-006",
+    "name": "Bluetooth Headphones",
+    "price": 45.5,
+    "unit": "item"
+  },
+  {
+    "id": "INV-007",
+    "name": "USB-C Charger",
+    "price": 12.0,
+    "unit": "item"
+  },
+  {
+    "id": "INV-008",
+    "name": "64GB USB Flash Drive",
+    "price": 9.99,
+    "unit": "item"
+  },
+  {
+    "id": "INV-009",
+    "name": "Portable Power Bank",
+    "price": 25.0,
+    "unit": "item"
+  },
+  {
+    "id": "INV-010",
+    "name": "HDMI Cable",
+    "price": 8.5,
+    "unit": "item"
+  },
+  {
+    "id": "INV-011",
+    "name": "Wireless Keyboard",
+    "price": 22.0,
+    "unit": "item"
+  },
+  {
+    "id": "INV-012",
+    "name": "Smart LED Bulb",
+    "price": 10.99,
+    "unit": "item"
+  },
+  {
+    "id": "INV-013",
+    "name": "Bluetooth Speaker",
+    "price": 29.99,
+    "unit": "item"
+  },
+  {
+    "id": "INV-014",
+    "name": "Wired Earbuds",
+    "price": 7.5,
+    "unit": "item"
+  },
+  {
+    "id": "INV-015",
+    "name": "Paracetamol 500mg (10 tablets)",
+    "price": 1.99,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-016",
+    "name": "Ibuprofen 200mg (10 tablets)",
+    "price": 2.5,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-017",
+    "name": "Cough Syrup 100ml",
+    "price": 4.5,
+    "unit": "bottle"
+  },
+  {
+    "id": "INV-018",
+    "name": "Antiseptic Cream 20g",
+    "price": 3.25,
+    "unit": "tube"
+  },
+  {
+    "id": "INV-019",
+    "name": "Bandage Roll 5cm",
+    "price": 1.5,
+    "unit": "item"
+  },
+  {
+    "id": "INV- 020",
+    "name": "Digital Thermometer",
+    "price": 12.0,
+    "unit": "item"
+  },
+  {
+    "id": "INV-021",
+    "name": "Hand Sanitizer 250ml",
+    "price": 3.75,
+    "unit": "bottle"
+  },
+  {
+    "id": "INV-022",
+    "name": "Alcohol Swabs (10)",
+    "price": 1.2,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-023",
+    "name": "Vitamin C 500mg (60 tablets)",
+    "price": 6.0,
+    "unit": "bottle"
+  },
+  {
+    "id": "INV-024",
+    "name": "First Aid Kit (small)",
+    "price": 18.0,
+    "unit": "item"
+  },
+  {
+    "id": "INV-025",
+    "name": "Apples 1kg",
+    "price": 3.2,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-026",
+    "name": "Bananas 1kg",
+    "price": 1.4,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-027",
+    "name": "Basmati Rice 1kg",
+    "price": 2.3,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-028",
+    "name": "Sugar 1kg",
+    "price": 1.1,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-029",
+    "name": "Salt 1kg",
+    "price": 0.8,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-030",
+    "name": "Eggs (dozen)",
+    "price": 2.7,
+    "unit": "dozen"
+  },
+  {
+    "id": "INV-031",
+    "name": "Unsalted Butter 250g",
+    "price": 2.8,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-032",
+    "name": "Cheddar Cheese 200g",
+    "price": 3.6,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-033",
+    "name": "Tomato 1kg",
+    "price": 1.6,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-034",
+    "name": "Potatoes 1kg",
+    "price": 0.9,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-035",
+    "name": "Onions 1kg",
+    "price": 1.0,
+    "unit": "kg"
+  },
+  {
+    "id": "INV-036",
+    "name": "Olive Oil 500ml",
+    "price": 7.5,
+    "unit": "bottle"
+  },
+  {
+    "id": "INV-037",
+    "name": "Pasta 500g",
+    "price": 1.9,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-038",
+    "name": "Breakfast Cereal 500g",
+    "price": 3.4,
+    "unit": "box"
+  },
+  {
+    "id": "INV-039",
+    "name": "Coffee 250g",
+    "price": 4.8,
+    "unit": "pack"
+  },
+  {
+    "id": "INV-040",
+    "name": "Tea Bags (100)",
+    "price": 3.2,
+    "unit": "box"
+  },
+  {
+    "id": "INV-041",
+    "name": "Orange Juice 1L",
+    "price": 2.5,
+    "unit": "liter"
+  },
+  {
+    "id": "INV-042",
+    "name": "Peanut Butter 340g",
+    "price": 4.0,
+    "unit": "jar"
+  },
+  {
+    "id": "INV-043",
+    "name": "Honey 500g",
+    "price": 6.0,
+    "unit": "jar"
+  },
+  {
+    "id": "INV-044",
+    "name": "Greek Yogurt 150g",
+    "price": 1.2,
+    "unit": "item"
+  }
+]

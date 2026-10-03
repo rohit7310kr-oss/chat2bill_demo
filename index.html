@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat2bill.com</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col"
+  >
+    <!-- Header -->
+    <header
+      class="bg-slate-800 border-b border-slate-700 p-4 flex justify-between items-center"
+    >
+      <div class="flex items-center space-x-3">
+        <div class="bg-emerald-500 p-2 rounded-lg text-slate-900 font-bold">
+          🎙️📷 AI
+        </div>
+        <h1 class="text-xl font-bold">Chat2bill.com</h1>
+      </div>
+      <span class="text-xs bg-slate-700 px-3 py-1 rounded-full text-slate-300"
+        >Voice + Text + Vision</span
+      >
+    </header>
+
+    <!-- Main Container -->
+    <main
+      class="flex-1 max-w-6xl w-full mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6"
+    >
+      <!-- Chat & Input Area (2 Columns) -->
+      <section
+        class="md:col-span-2 flex flex-col bg-slate-800 rounded-xl border border-slate-700 h-[78vh]"
+      >
+        <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-4">
+          <div class="flex items-start space-x-3">
+            <div
+              class="bg-emerald-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm"
+            >
+              AI
+            </div>
+            <div class="bg-slate-700 p-3 rounded-lg max-w-md text-sm">
+              Hello! You can speak continuously using server-side Whisper AI,
+              type commands, or upload/capture product images to create a bill.
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Speech Banner -->
+        <div
+          id="live-transcript-box"
+          class="hidden bg-slate-900/90 border-t border-slate-700 px-4 py-2 text-xs text-emerald-400 font-mono italic flex justify-between items-center"
+        >
+          <span
+            >Status:
+            <span id="live-text" class="text-slate-200"
+              >Listening for audio...</span
+            ></span
+          >
+          <span
+            id="recording-indicator"
+            class="h-2 w-2 rounded-full bg-rose-500 animate-pulse"
+          ></span>
+        </div>
+
+        <!-- Camera Preview Area (Hidden by default) -->
+        <div
+          id="camera-modal"
+          class="hidden p-4 bg-slate-900 border-t border-slate-700 flex flex-col items-center"
+        >
+          <video
+            id="video-feed"
+            class="w-64 h-48 bg-black rounded-lg mb-2"
+            autoplay
+            playsinline
+          ></video>
+          <div class="flex space-x-3">
+            <button
+              onclick="captureCameraImage()"
+              class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-4 py-2 rounded-lg text-xs"
+            >
+              Capture & Scan
+            </button>
+            <button
+              onclick="stopCamera()"
+              class="bg-rose-500 hover:bg-rose-600 text-white font-bold px-4 py-2 rounded-lg text-xs"
+            >
+              Close Camera
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls & Input Bar -->
+        <div class="p-4 bg-slate-800/80 border-t border-slate-700 space-y-3">
+          <!-- Text Input Form -->
+          <form onsubmit="handleTextSubmit(event)" class="flex space-x-2">
+            <input
+              id="text-input"
+              type="text"
+              placeholder="Type command e.g. 'Add 2 Organic Milk'..."
+              class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-500"
+            />
+            <button
+              type="submit"
+              class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-4 py-2 rounded-lg text-sm"
+            >
+              Send
+            </button>
+          </form>
+
+          <!-- Voice & Image Actions -->
+          <div class="flex items-center space-x-2">
+            <button
+              id="mic-btn"
+              onclick="toggleContinuousRecording()"
+              class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold px-4 py-2 rounded-lg flex items-center space-x-2 text-xs"
+            >
+              <span id="mic-icon">🎤</span>
+              <span id="mic-label">Start Listening (Whisper)</span>
+            </button>
+            <button
+              onclick="startCamera()"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-lg text-xs"
+            >
+              📷 Camera
+            </button>
+            <label
+              class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-4 py-2 rounded-lg text-xs cursor-pointer"
+            >
+              🖼️ Upload Image
+              <input
+                type="file"
+                accept="image/*"
+                class="hidden"
+                onchange="uploadImage(event)"
+              />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cart Drawer (1 Column) -->
+      <section
+        class="bg-slate-800 rounded-xl border border-slate-700 p-4 flex flex-col justify-between"
+      >
+        <div>
+          <h2
+            class="text-lg font-bold border-b border-slate-700 pb-3 mb-4 flex justify-between items-center"
+          >
+            <span>Current Bill</span>
+            <span
+              id="item-count"
+              class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded"
+              >0 items</span
+            >
+          </h2>
+          <div id="cart-list" class="space-y-3 overflow-y-auto max-h-[50vh]">
+            <p
+              id="empty-cart-text"
+              class="text-slate-500 text-sm text-center py-8"
+            >
+              No items added to bill yet.
+            </p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-700 pt-4 mt-4 space-y-3">
+          <div class="flex justify-between items-center text-lg font-bold">
+            <span>Total Amount:</span>
+            <span id="grand-total" class="text-emerald-400">$0.00</span>
+          </div>
+          <button
+            onclick="clearBill()"
+            class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 py-2 rounded-lg text-sm"
+          >
+            Clear Bill
+          </button>
+          <button
+            onclick="saveAndCheckout()"
+            class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 rounded-lg"
+          >
+            Checkout & Print
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      let isListening = false;
+      let activeCart = [];
+      let videoStream = null;
+
+      // Server-Side Audio Recording Setup
+      let mediaRecorder;
+      let audioChunks = [];
+      let audioContext;
+      let analyser;
+      let silenceTimer = null;
+      let audioStream = null;
+
+      async function toggleContinuousRecording() {
+        const micBtn = document.getElementById("mic-btn");
+        const micLabel = document.getElementById("mic-label");
+        const liveBox = document.getElementById("live-transcript-box");
+
+        if (!isListening) {
+          try {
+            audioStream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+            isListening = true;
+            micBtn.classList.replace("bg-emerald-500", "bg-rose-500");
+            micLabel.innerText = "Stop Listening";
+            liveBox.classList.remove("hidden");
+
+            startMediaRecorder();
+          } catch (err) {
+            alert("Microphone permission denied or audio device missing.");
+          }
+        } else {
+          isListening = false;
+          if (mediaRecorder && mediaRecorder.state !== "inactive") {
+            mediaRecorder.stop();
+          }
+          if (audioStream) {
+            audioStream.getTracks().forEach((t) => t.stop());
+          }
+          if (audioContext) {
+            audioContext.close();
+          }
+          clearTimeout(silenceTimer);
+
+          micBtn.classList.replace("bg-rose-500", "bg-emerald-500");
+          micLabel.innerText = "Start Listening (Whisper)";
+          liveBox.classList.add("hidden");
+        }
+      }
+
+      function startMediaRecorder() {
+        if (!isListening) return;
+
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(audioStream);
+
+        mediaRecorder.ondataavailable = (e) => {
+          if (e.data.size > 0) audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+          if (audioChunks.length > 0) {
+            const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+            if (audioBlob.size > 2000) {
+              // Send only non-empty audio clips
+              await sendAudioToWhisper(audioBlob);
+            }
+          }
+          if (isListening) {
+            startMediaRecorder(); // Cycle back to listen for next spoken command
+          }
+        };
+
+        mediaRecorder.start();
+        document.getElementById("live-text").innerText =
+          "Listening for voice command...";
+        setupSilenceDetection();
+      }
+
+      function setupSilenceDetection() {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioContext.createMediaStreamSource(audioStream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 512;
+        source.connect(analyser);
+
+        const buffer = new Uint8Array(analyser.frequencyBinCount);
+        let speechDetected = false;
+
+        function checkVolume() {
+          if (!isListening || mediaRecorder.state === "inactive") return;
+          analyser.getByteFrequencyData(buffer);
+
+          let sum = 0;
+          for (let i = 0; i < buffer.length; i++) sum += buffer[i];
+          let average = sum / buffer.length;
+
+          // Sound threshold trigger
+          if (average > 12) {
+            speechDetected = true;
+            document.getElementById("live-text").innerText =
+              "Recording speech...";
+            clearTimeout(silenceTimer);
+            silenceTimer = setTimeout(() => {
+              if (speechDetected && mediaRecorder.state === "recording") {
+                document.getElementById("live-text").innerText =
+                  "Processing audio with Whisper AI...";
+                mediaRecorder.stop(); // Stops current recording segment and posts to backend
+              }
+            }, 1200); // Trigger send after 1.2s of silence
+          }
+
+          if (isListening) requestAnimationFrame(checkVolume);
+        }
+
+        checkVolume();
+      }
+
+      async function sendAudioToWhisper(blob) {
+        appendUserChatMessage("🎙️ Spoken Audio Command");
+        const formData = new FormData();
+        formData.append("file", blob, "speech.wav");
+
+        try {
+          const res = await fetch("/api/v1/voice-billing-audio", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+          if (data.status === "success") {
+            appendAIChatMessage(
+              data.transcript,
+              data.confirmed_items,
+              data.unmatched_items,
+            );
+            addItemsToCart(data.confirmed_items);
+          }
+        } catch (err) {
+          appendAIChatMessage("Error communicating with Whisper backend.");
+        }
+      }
+
+      // Typed Text Form Handler
+      function handleTextSubmit(e) {
+        e.preventDefault();
+        const input = document.getElementById("text-input");
+        const text = input.value.trim();
+        if (!text) return;
+
+        processTextInput(text, "💬");
+        input.value = "";
+      }
+
+      async function processTextInput(text, prefix = "") {
+        appendUserChatMessage(`${prefix} "${text}"`);
+        try {
+          const res = await fetch("/api/v1/voice-billing-text", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          const data = await res.json();
+          if (data.status === "success") {
+            appendAIChatMessage(
+              data.transcript,
+              data.confirmed_items,
+              data.unmatched_items,
+            );
+            addItemsToCart(data.confirmed_items);
+          }
+        } catch (err) {
+          appendAIChatMessage("Error communicating with backend.");
+        }
+      }
+
+      // Camera & Image Processing
+      async function startCamera() {
+        const modal = document.getElementById("camera-modal");
+        const video = document.getElementById("video-feed");
+        try {
+          videoStream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+          video.srcObject = videoStream;
+          modal.classList.remove("hidden");
+        } catch (err) {
+          alert("Unable to access camera.");
+        }
+      }
+
+      function stopCamera() {
+        if (videoStream) {
+          videoStream.getTracks().forEach((track) => track.stop());
+        }
+        document.getElementById("camera-modal").classList.add("hidden");
+      }
+
+      async function captureCameraImage() {
+        const video = document.getElementById("video-feed");
+        const canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+
+        canvas.toBlob(async (blob) => {
+          stopCamera();
+          await processImageBlob(blob, "📷 Captured Image");
+        }, "image/jpeg");
+      }
+
+      async function uploadImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+          await processImageBlob(file, `🖼️ ${file.name}`);
+        }
+      }
+
+      async function processImageBlob(blob, label) {
+        appendUserChatMessage(label);
+        const formData = new FormData();
+        formData.append("file", blob, "captured_item.jpg");
+
+        try {
+          const res = await fetch("/api/v1/image-billing", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+          if (data.status === "success") {
+            appendAIChatMessage(
+              data.transcript,
+              data.confirmed_items,
+              data.unmatched_items,
+            );
+            addItemsToCart(data.confirmed_items);
+          }
+        } catch (err) {
+          appendAIChatMessage("Error processing image.");
+        }
+      }
+
+      function appendUserChatMessage(text) {
+        const chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `
+        <div class="flex justify-end">
+          <div class="bg-emerald-500/20 text-emerald-200 border border-emerald-500/30 p-3 rounded-lg max-w-md text-sm">${text}</div>
+        </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function appendAIChatMessage(transcript, confirmed = [], unmatched = []) {
+        const chatBox = document.getElementById("chat-box");
+        let itemsHtml = "";
+
+        confirmed.forEach((item) => {
+          itemsHtml += `
+          <div class="bg-slate-800 p-2 rounded border border-slate-600 flex justify-between items-center my-1 text-xs">
+            <div class="flex items-center space-x-2">
+              <span class="bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded text-[10px] font-semibold">${item.action.toUpperCase()}</span>
+              <span class="font-bold text-slate-100">${item.inventory_name}</span>
+              <span class="text-slate-400"> (x${item.quantity})</span>
+            </div>
+            <span class="text-emerald-400 font-bold">$${item.total_price.toFixed(2)}</span>
+          </div>`;
+        });
+
+        chatBox.innerHTML += `
+        <div class="flex items-start space-x-3">
+          <div class="bg-emerald-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-sm">AI</div>
+          <div class="bg-slate-700 p-3 rounded-lg max-w-md text-sm">
+            <p class="text-xs font-mono text-emerald-300 mb-1">Transcript: "${transcript}"</p>
+            <p class="font-semibold text-slate-200">Processed Items:</p>
+            ${itemsHtml || '<p class="text-rose-400 text-xs">No matching inventory items found.</p>'}
+          </div>
+        </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function addItemsToCart(newItems) {
+        newItems.forEach((item) => {
+          const index = activeCart.findIndex((c) => c.item_id === item.item_id);
+
+          if (item.action === "remove_all") {
+            activeCart = [];
+            return;
+          }
+
+          if (index !== -1) {
+            if (item.action === "remove") {
+              if (item.quantity && item.quantity_specified) {
+                activeCart[index].quantity -= item.quantity;
+              } else {
+                activeCart[index].quantity = 0;
+              }
+
+              if (activeCart[index].quantity <= 0) {
+                activeCart.splice(index, 1);
+              } else {
+                activeCart[index].total_price =
+                  activeCart[index].quantity * activeCart[index].unit_price;
+              }
+            } else if (item.action === "set") {
+              if (item.quantity <= 0) {
+                activeCart.splice(index, 1);
+              } else {
+                activeCart[index].quantity = item.quantity;
+                activeCart[index].total_price =
+                  item.quantity * activeCart[index].unit_price;
+              }
+            } else {
+              activeCart[index].quantity += item.quantity;
+              activeCart[index].total_price =
+                activeCart[index].quantity * activeCart[index].unit_price;
+            }
+          } else if (item.action === "add" || item.action === "set") {
+            if (item.quantity > 0) {
+              activeCart.push({ ...item });
+            }
+          }
+        });
+
+        renderCart();
+      }
+
+      function updateQty(itemId, delta) {
+        const item = activeCart.find((c) => c.item_id === itemId);
+        if (item) {
+          item.quantity += delta;
+          if (item.quantity <= 0)
+            activeCart = activeCart.filter((c) => c.item_id !== itemId);
+          else item.total_price = item.quantity * item.unit_price;
+        }
+        renderCart();
+      }
+
+      function renderCart() {
+        const cartList = document.getElementById("cart-list");
+        const grandTotal = document.getElementById("grand-total");
+        const itemCount = document.getElementById("item-count");
+
+        if (activeCart.length === 0) {
+          cartList.innerHTML = `<p id="empty-cart-text" class="text-slate-500 text-sm text-center py-8">No items added to bill yet.</p>`;
+          grandTotal.innerText = "$0.00";
+          itemCount.innerText = "0 items";
+          return;
+        }
+
+        let total = 0,
+          totalQty = 0;
+        cartList.innerHTML = "";
+
+        activeCart.forEach((item) => {
+          total += item.total_price;
+          totalQty += item.quantity;
+
+          cartList.innerHTML += `
+          <div class="bg-slate-700/50 p-3 rounded-lg flex justify-between items-center border border-slate-600">
+            <div>
+              <div class="text-sm font-semibold">${item.inventory_name}</div>
+              <div class="text-xs text-slate-400">$${item.unit_price.toFixed(2)} each</div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="flex items-center bg-slate-800 rounded border border-slate-600">
+                <button onclick="updateQty('${item.item_id}', -1)" class="px-2 py-0.5 text-slate-400 hover:text-white">-</button>
+                <span class="px-2 text-xs font-bold">${item.quantity}</span>
+                <button onclick="updateQty('${item.item_id}', 1)" class="px-2 py-0.5 text-slate-400 hover:text-white">+</button>
+              </div>
+              <span class="text-sm font-bold text-emerald-400">$${item.total_price.toFixed(2)}</span>
+            </div>
+          </div>`;
+        });
+
+        grandTotal.innerText = `$${total.toFixed(2)}`;
+        itemCount.innerText = `${totalQty} items`;
+      }
+
+      async function saveAndCheckout() {
+        if (activeCart.length === 0) return alert("Cart is empty!");
+        const total = activeCart.reduce(
+          (acc, curr) => acc + curr.total_price,
+          0,
+        );
+
+        const res = await fetch("/api/v1/bills/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items: activeCart, grand_total: total }),
+        });
+        const data = await res.json();
+        if (data.status === "success") {
+          alert(
+            `Bill #${data.bill.bill_id} saved! Total: $${total.toFixed(2)}`,
+          );
+          activeCart = [];
+          renderCart();
+        }
+      }
+
+      async function clearBill() {
+        activeCart = [];
+        renderCart();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,431 @@
+[
+  {
+    "bill_id": "BILL-A35BFE3F",
+    "timestamp": "2026-09-30T15:08:10.862866",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-001",
+        "inventory_name": "Organic Milk 1L",
+        "quantity": 2,
+        "unit_price": 3.5,
+        "total_price": 7,
+        "confidence_score": 95
+      }
+    ],
+    "grand_total": 7.0
+  },
+  {
+    "bill_id": "BILL-903D3B8A",
+    "timestamp": "2026-09-30T18:25:05.455879",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-033",
+        "inventory_name": "Tomato 1kg",
+        "quantity": 8,
+        "unit_price": 1.6,
+        "total_price": 12.8,
+        "confidence_score": 77.73
+      },
+      {
+        "item_id": "INV-034",
+        "inventory_name": "Potatoes 1kg",
+        "quantity": 2,
+        "unit_price": 0.9,
+        "total_price": 1.8,
+        "confidence_score": 75
+      },
+      {
+        "item_id": "INV-015",
+        "inventory_name": "Paracetamol 500mg (10 tablets)",
+        "quantity": 3,
+        "unit_price": 1.99,
+        "total_price": 5.97,
+        "confidence_score": 81.82
+      }
+    ],
+    "grand_total": 20.57
+  },
+  {
+    "bill_id": "BILL-4E2A88BA",
+    "timestamp": "2026-10-01T14:18:04.522081",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-033",
+        "inventory_name": "Tomato 1kg",
+        "quantity": 1,
+        "unit_price": 1.6,
+        "total_price": 1.6,
+        "action": "add",
+        "confidence_score": 77.73
+      },
+      {
+        "item_id": "INV-025",
+        "inventory_name": "Apples 1kg",
+        "quantity": 3,
+        "unit_price": 3.2,
+        "total_price": 9.6,
+        "action": "add",
+        "confidence_score": 72
+      },
+      {
+        "item_id": "INV-026",
+        "inventory_name": "Bananas 1kg",
+        "quantity": 7,
+        "unit_price": 1.4,
+        "total_price": 9.8,
+        "action": "add",
+        "confidence_score": 75
+      },
+      {
+        "item_id": "INV-005",
+        "inventory_name": "Wireless Mouse",
+        "quantity": 1,
+        "unit_price": 15.99,
+        "total_price": 15.99,
+        "action": "add",
+        "confidence_score": 85.71
+      },
+      {
+        "item_id": "INV-011",
+        "inventory_name": "Wireless Keyboard",
+        "quantity": 7,
+        "unit_price": 22,
+        "total_price": 154,
+        "action": "add",
+        "confidence_score": 84
+      }
+    ],
+    "grand_total": 190.99
+  },
+  {
+    "bill_id": "BILL-88B0E214",
+    "timestamp": "2026-10-01T14:33:42.688555",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-034",
+        "inventory_name": "Potatoes 1kg",
+        "quantity": 10,
+        "unit_price": 0.9,
+        "total_price": 9,
+        "action": "add",
+        "confidence_score": 75
+      },
+      {
+        "item_id": "INV-025",
+        "inventory_name": "Apples 1kg",
+        "quantity": 10,
+        "unit_price": 3.2,
+        "total_price": 32,
+        "action": "add",
+        "confidence_score": 72
+      },
+      {
+        "item_id": "INV-005",
+        "inventory_name": "Wireless Mouse",
+        "quantity": 1,
+        "unit_price": 15.99,
+        "total_price": 15.99,
+        "action": "add",
+        "confidence_score": 85.71
+      },
+      {
+        "item_id": "INV-011",
+        "inventory_name": "Wireless Keyboard",
+        "quantity": 1,
+        "unit_price": 22,
+        "total_price": 22,
+        "action": "add",
+        "confidence_score": 76.92
+      },
+      {
+        "item_id": "INV-033",
+        "inventory_name": "Tomato 1kg",
+        "quantity": 8,
+        "unit_price": 1.6,
+        "total_price": 12.8,
+        "action": "add",
+        "confidence_score": 77.73
+      },
+      {
+        "item_id": "INV-015",
+        "inventory_name": "Paracetamol 500mg (10 tablets)",
+        "quantity": 2.7,
+        "unit_price": 1.99,
+        "total_price": 5.373,
+        "action": "add",
+        "confidence_score": 81.82
+      }
+    ],
+    "grand_total": 97.16
+  },
+  {
+    "bill_id": "BILL-AA6A0ED2",
+    "timestamp": "2026-10-01T14:57:03.413411",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-002",
+        "inventory_name": "Amul Salted Butter 500g",
+        "quantity": 2,
+        "unit_price": 4.2,
+        "total_price": 8.4,
+        "action": "add",
+        "confidence_score": 60
+      },
+      {
+        "item_id": "INV-003",
+        "inventory_name": "Whole Wheat Bread 400g",
+        "quantity": 1,
+        "unit_price": 2.1,
+        "total_price": 2.1,
+        "action": "add",
+        "confidence_score": 71.79
+      },
+      {
+        "item_id": "INV-F7DC9B",
+        "inventory_name": "Blueberry Yogurt",
+        "quantity": 2,
+        "unit_price": 2.75,
+        "total_price": 5.5,
+        "action": "add",
+        "confidence_score": 87.5
+      },
+      {
+        "item_id": "INV-005",
+        "inventory_name": "Wireless Mouse",
+        "quantity": 6,
+        "unit_price": 15.99,
+        "total_price": 95.94,
+        "action": "add",
+        "confidence_score": 85.71
+      },
+      {
+        "item_id": "INV-011",
+        "inventory_name": "Wireless Keyboard",
+        "quantity": 6,
+        "unit_price": 22,
+        "total_price": 132,
+        "action": "add",
+        "confidence_score": 84
+      },
+      {
+        "item_id": "INV-010",
+        "inventory_name": "HDMI Cable",
+        "quantity": 5,
+        "unit_price": 8.5,
+        "total_price": 42.5,
+        "action": "add",
+        "confidence_score": 90
+      },
+      {
+        "item_id": "INV-012",
+        "inventory_name": "Smart LED Bulb",
+        "quantity": 7,
+        "unit_price": 10.99,
+        "total_price": 76.93,
+        "action": "add",
+        "confidence_score": 85.71
+      },
+      {
+        "item_id": "INV-013",
+        "inventory_name": "Bluetooth Speaker",
+        "quantity": 3,
+        "unit_price": 29.99,
+        "total_price": 89.97,
+        "action": "add",
+        "confidence_score": 88.24
+      },
+      {
+        "item_id": "INV-014",
+        "inventory_name": "Wired Earbuds",
+        "quantity": 3,
+        "unit_price": 7.5,
+        "total_price": 22.5,
+        "action": "add",
+        "confidence_score": 80
+      },
+      {
+        "item_id": "INV-015",
+        "inventory_name": "Paracetamol 500mg (10 tablets)",
+        "quantity": 22,
+        "unit_price": 1.99,
+        "total_price": 43.78,
+        "action": "add",
+        "confidence_score": 81.82
+      },
+      {
+        "item_id": "INV-017",
+        "inventory_name": "Cough Syrup 100ml",
+        "quantity": 1,
+        "unit_price": 4.5,
+        "total_price": 4.5,
+        "action": "add",
+        "confidence_score": 73.64
+      },
+      {
+        "item_id": "INV-018",
+        "inventory_name": "Antiseptic Cream 20g",
+        "quantity": 1,
+        "unit_price": 3.25,
+        "total_price": 3.25,
+        "action": "add",
+        "confidence_score": 76
+      },
+      {
+        "item_id": "INV-019",
+        "inventory_name": "Bandage Roll 5cm",
+        "quantity": 1,
+        "unit_price": 1.5,
+        "total_price": 1.5,
+        "action": "add",
+        "confidence_score": 71.43
+      },
+      {
+        "item_id": "INV- 020",
+        "inventory_name": "Digital Thermometer",
+        "quantity": 16,
+        "unit_price": 12,
+        "total_price": 192,
+        "action": "add",
+        "confidence_score": 89.47
+      },
+      {
+        "item_id": "INV-021",
+        "inventory_name": "Hand Sanitizer 250ml",
+        "quantity": 5,
+        "unit_price": 3.75,
+        "total_price": 18.75,
+        "action": "add",
+        "confidence_score": 70.59
+      },
+      {
+        "item_id": "INV-023",
+        "inventory_name": "Vitamin C 500mg (60 tablets)",
+        "quantity": 3,
+        "unit_price": 6,
+        "total_price": 18,
+        "action": "add",
+        "confidence_score": 74.12
+      },
+      {
+        "item_id": "INV-024",
+        "inventory_name": "First Aid Kit (small)",
+        "quantity": 3,
+        "unit_price": 18,
+        "total_price": 54,
+        "action": "add",
+        "confidence_score": 68.4
+      },
+      {
+        "item_id": "INV-026",
+        "inventory_name": "Bananas 1kg",
+        "quantity": 4,
+        "unit_price": 1.4,
+        "total_price": 5.6,
+        "action": "add",
+        "confidence_score": 75
+      },
+      {
+        "item_id": "INV-027",
+        "inventory_name": "Basmati Rice 1kg",
+        "quantity": 6,
+        "unit_price": 2.3,
+        "total_price": 13.799999999999999,
+        "action": "add",
+        "confidence_score": 71.43
+      },
+      {
+        "item_id": "INV-028",
+        "inventory_name": "Sugar 1kg",
+        "quantity": 6,
+        "unit_price": 1.1,
+        "total_price": 6.6,
+        "action": "add",
+        "confidence_score": 76
+      },
+      {
+        "item_id": "INV-030",
+        "inventory_name": "Eggs (dozen)",
+        "quantity": 4,
+        "unit_price": 2.7,
+        "total_price": 10.8,
+        "action": "add",
+        "confidence_score": 60
+      },
+      {
+        "item_id": "INV-007",
+        "inventory_name": "USB-C Charger",
+        "quantity": 2,
+        "unit_price": 12,
+        "total_price": 24,
+        "action": "add",
+        "confidence_score": 68.4
+      }
+    ],
+    "grand_total": 872.42
+  },
+  {
+    "bill_id": "BILL-315A1ED6",
+    "timestamp": "2026-10-01T14:57:47.274368",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-002",
+        "inventory_name": "Amul Salted Butter 500g",
+        "quantity": 1,
+        "unit_price": 4.2,
+        "total_price": 4.2,
+        "action": "add",
+        "confidence_score": 60
+      }
+    ],
+    "grand_total": 4.2
+  },
+  {
+    "bill_id": "BILL-DB8FE728",
+    "timestamp": "2026-10-01T14:58:32.414412",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-004",
+        "inventory_name": "Coca-Cola Original 500ml",
+        "quantity": 3,
+        "unit_price": 1.5,
+        "total_price": 4.5,
+        "action": "add",
+        "confidence_score": 60
+      },
+      {
+        "item_id": "INV-003",
+        "inventory_name": "Whole Wheat Bread 400g",
+        "quantity": 1,
+        "unit_price": 2.1,
+        "total_price": 2.1,
+        "action": "add",
+        "confidence_score": 67.5
+      }
+    ],
+    "grand_total": 6.6
+  },
+  {
+    "bill_id": "BILL-5B0E10AE",
+    "timestamp": "2026-10-01T14:59:14.163966",
+    "status": "cleared",
+    "items": [
+      {
+        "item_id": "INV-004",
+        "inventory_name": "Coca-Cola Original 500ml",
+        "quantity": 3,
+        "unit_price": 1.5,
+        "total_price": 4.5,
+        "action": "add",
+        "confidence_score": 90
+      }
+    ],
+    "grand_total": 4.5
+  }
+]
